@@ -20,17 +20,25 @@
             "text": "LIVRAISON GRATUITE EN FRANCE ET EN BELGIQUE",
             "url": ""
           }
+        },
+        "message_xGnxc9": {
+          "type": "message",
+          "settings": {
+            "text": "OFFRE RENTRÉE 2026 : 1 ACHETÉ = 1 OFFERT",
+            "url": ""
+          }
         }
       },
       "block_order": [
-        "message"
+        "message",
+        "message_xGnxc9"
       ],
       "settings": {
         "enable_sticky": false,
         "text_size": "text-base",
         "navigation_mode": "arrows",
         "scrolling_speed": 10,
-        "background": "#1a1a1a",
+        "background": "#1092F0",
         "background_gradient": "",
         "text_color": "#ffffff"
       }
