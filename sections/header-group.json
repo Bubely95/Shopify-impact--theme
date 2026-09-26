@@ -14,24 +14,24 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
-        "message": {
-          "type": "message",
-          "settings": {
-            "text": "LIVRAISON GRATUITE EN FRANCE ET EN BELGIQUE",
-            "url": ""
-          }
-        },
         "message_xGnxc9": {
           "type": "message",
           "settings": {
             "text": "OFFRE RENTRÉE 2026 : 1 ACHETÉ = 1 OFFERT",
             "url": ""
           }
+        },
+        "message": {
+          "type": "message",
+          "settings": {
+            "text": "LIVRAISON GRATUITE EN FRANCE ET EN BELGIQUE",
+            "url": ""
+          }
         }
       },
       "block_order": [
-        "message",
-        "message_xGnxc9"
+        "message_xGnxc9",
+        "message"
       ],
       "settings": {
         "enable_sticky": false,
