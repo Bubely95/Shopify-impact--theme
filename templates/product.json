@@ -206,10 +206,37 @@
         "ai_gen_block_7890acd_xHtkdN"
       ],
       "settings": {}
+    },
+    "1790975492aa290c28": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_784f7bd_CMTHWa": {
+          "type": "ai_gen_block_784f7bd",
+          "settings": {
+            "desktop_width_percent": 100,
+            "rating": 5,
+            "review_count": 100,
+            "show_rating": true,
+            "show_count": true,
+            "alignment": "flex-start",
+            "star_size": 20,
+            "text_size": 14,
+            "star_color": "#A66B00",
+            "empty_star_color": "#767676",
+            "text_color": "#1A1A1A"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_784f7bd_CMTHWa"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "main",
-    "1790959701978bea9a"
+    "1790959701978bea9a",
+    "1790975492aa290c28"
   ]
 }
