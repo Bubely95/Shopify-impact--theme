@@ -1,14 +1,25 @@
 {% doc %}
   @prompt
-    crée moi une section témoignage, 5 étoile ou je peut changer la couleur espacement haut et bas et entre les étoiles, ensuite un titre un peu gras en police d'écriture Poppins, ensuite un sous titre petit, ensuite une galerie d'image defilente ( pas automatique) je peut changer la taille d'image et les image on des bordure de couleur, en bas de chaque image il y a l'avis client, met un paragraphe simple et juste en haut le nom prenom avec une sorte de "point" avec le texte Vérifié d'une autre couleur ( et le point) , et tout en bas ajoute une barre de progression des avis, il y a 3 avis en tout , centre tout les élementvers le milieu, , enleve en bas les élement, textes ect, je veut que les dernier element soit la barre de progression, et fait que la barre soit plus stylé et intéractf, sans les fleches, fait que les partie Nom prenom + Vérifié soit entouré d'une autre couleur avec fond , enleve ce qui entoure le nom prenom et le vérifié et fait qu'il y'ai en bas de chaque nom prenon un avis , enleve la barre de progression et fait quelle que chose de plus simple, enleve les 3 petit point, et fait que la barre de progressions soit simple en fine, pour les avis fait que le premiere avis soit celui de gauche et pas celui du milieu , ajoute un parametre d'espacement entre chaque élément, par exemple l'espacement en bas des avis vers la barre de progression, fait que le titre principal soit plus épais , met un paramettre , pour le titre, gras, semi gras ect , fait que le titre soit plus rapproché par ligne ajoute un parametre, met un parametre pour reduire l'espacement etre les avis et la barre de progression
+    Section témoignages clients : 5 étoiles (couleur, taille, espacement), titre avec police modifiable (font picker, poids, taille, interligne, espacement des lettres), sous-titre, galerie de VIDÉOS défilante (non automatique, glisser à la souris / au doigt, sans flèches), bordure colorée sur les vidéos, taille et format réglables, sous chaque vidéo : nom + point "Vérifié" coloré puis l'avis en paragraphe simple, tout centré, et en dernier élément une barre de progression fine, simple et interactive (cliquable / glissable). 4 emplacements d'avis (les vides sont masqués). Tous les espacements sont réglables.
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
+{% liquid
+  assign title_font = block.settings.title_font | font_modify: 'weight', block.settings.title_weight
+  assign is_autoplay = false
+  if block.settings.video_mode == 'autoplay'
+    assign is_autoplay = true
+  endif
+%}
+
 {% style %}
+  {{ title_font | font_face: font_display: 'swap' }}
+
   .ai-testimonial-section-{{ ai_gen_id }} {
     display: block;
     width: {{ block.settings.desktop_width_percent }}%;
     max-width: 100%;
+    margin: 0 auto;
     padding-top: {{ block.settings.spacing_top }}px;
     padding-bottom: {{ block.settings.spacing_bottom }}px;
     background-color: {{ block.settings.background_color }};
@@ -21,8 +32,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
   }
 
+  /* Étoiles */
   .ai-testimonial-stars-{{ ai_gen_id }} {
     display: flex;
     justify-content: center;
@@ -36,33 +49,26 @@
     fill: {{ block.settings.star_color }};
   }
 
+  /* Titre */
   .ai-testimonial-title-{{ ai_gen_id }} {
-    font-family: 'Poppins', sans-serif;
-    {% if block.settings.title_weight == 'normal' %}
-      font-weight: 400;
-    {% elsif block.settings.title_weight == 'medium' %}
-      font-weight: 500;
-    {% elsif block.settings.title_weight == 'semibold' %}
-      font-weight: 600;
-    {% elsif block.settings.title_weight == 'bold' %}
-      font-weight: 700;
-    {% elsif block.settings.title_weight == 'extrabold' %}
-      font-weight: 800;
-    {% endif %}
+    font-family: {{ title_font.family }}, {{ title_font.fallback_families }};
+    font-weight: {{ title_font.weight }};
+    font-style: {{ title_font.style }};
     font-size: {{ block.settings.title_size }}px;
     line-height: {{ block.settings.title_line_height }};
-    text-align: center;
+    letter-spacing: {{ block.settings.title_letter_spacing }}px;
     color: {{ block.settings.title_color }};
+    max-width: 900px;
     margin: 0 0 {{ block.settings.title_bottom_spacing }}px 0;
   }
 
   .ai-testimonial-subtitle-{{ ai_gen_id }} {
     font-size: {{ block.settings.subtitle_size }}px;
-    text-align: center;
     color: {{ block.settings.subtitle_color }};
     margin: 0 0 {{ block.settings.subtitle_bottom_spacing }}px 0;
   }
 
+  /* Galerie */
   .ai-testimonial-gallery-wrapper-{{ ai_gen_id }} {
     position: relative;
     width: 100%;
@@ -71,55 +77,132 @@
 
   .ai-testimonial-gallery-{{ ai_gen_id }} {
     display: flex;
-    justify-content: flex-start;
-    gap: {{ block.settings.image_gap }}px;
+    justify-content: {% if block.settings.gallery_align == 'center' %}safe center{% else %}flex-start{% endif %};
+    gap: {{ block.settings.video_gap }}px;
     overflow-x: auto;
-    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
     scrollbar-width: none;
-    padding-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    user-select: none;
   }
 
   .ai-testimonial-gallery-{{ ai_gen_id }}::-webkit-scrollbar {
     display: none;
   }
 
+  .ai-testimonial-gallery-{{ ai_gen_id }}.is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
+  }
+
   .ai-testimonial-card-{{ ai_gen_id }} {
     flex: 0 0 auto;
-    width: {{ block.settings.image_size }}px;
+    width: min({{ block.settings.video_width }}px, 78vw);
+    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .ai-testimonial-image-wrapper-{{ ai_gen_id }} {
-    width: {{ block.settings.image_size }}px;
-    height: {{ block.settings.image_size }}px;
-    border: {{ block.settings.image_border_width }}px solid {{ block.settings.image_border_color }};
-    border-radius: {{ block.settings.image_border_radius }}px;
+  .ai-testimonial-video-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: {{ block.settings.video_ratio }};
+    border: {{ block.settings.video_border_width }}px solid {{ block.settings.video_border_color }};
+    border-radius: {{ block.settings.video_border_radius }}px;
     overflow: hidden;
-    margin-bottom: {{ block.settings.image_bottom_spacing }}px;
+    background-color: #f4f4f4;
+    margin-bottom: {{ block.settings.video_bottom_spacing }}px;
+    cursor: pointer;
   }
 
-  .ai-testimonial-image-{{ ai_gen_id }} {
+  .ai-testimonial-video-{{ ai_gen_id }} {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
   }
 
-  .ai-testimonial-image-placeholder-{{ ai_gen_id }} {
-    width: 100%;
-    height: 100%;
-    background-color: #f4f4f4;
+  .ai-testimonial-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .ai-testimonial-image-placeholder-{{ ai_gen_id }} svg {
-    width: 60%;
-    height: 60%;
+  .ai-testimonial-placeholder-{{ ai_gen_id }} svg {
+    width: 50%;
+    height: 50%;
+    opacity: 0.4;
   }
 
+  /* Boutons lecture / son */
+  .ai-testimonial-play-{{ ai_gen_id }},
+  .ai-testimonial-sound-{{ ai_gen_id }} {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    padding: 0;
+    border-radius: 50%;
+    background: {{ block.settings.play_button_color }};
+    color: {{ block.settings.play_icon_color }};
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .ai-testimonial-play-{{ ai_gen_id }} {
+    top: 50%;
+    left: 50%;
+    width: 56px;
+    height: 56px;
+    transform: translate(-50%, -50%);
+  }
+
+  .ai-testimonial-play-{{ ai_gen_id }} svg {
+    width: 22px;
+    height: 22px;
+    margin-left: 3px;
+    fill: currentColor;
+  }
+
+  .ai-testimonial-video-wrapper-{{ ai_gen_id }}:hover .ai-testimonial-play-{{ ai_gen_id }} {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  .ai-testimonial-video-wrapper-{{ ai_gen_id }}.is-playing .ai-testimonial-play-{{ ai_gen_id }} {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .ai-testimonial-sound-{{ ai_gen_id }} {
+    right: 10px;
+    bottom: 10px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .ai-testimonial-sound-{{ ai_gen_id }} svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .ai-testimonial-sound-{{ ai_gen_id }} .icon-on { display: none; }
+  .ai-testimonial-video-wrapper-{{ ai_gen_id }}.is-unmuted .icon-on { display: block; }
+  .ai-testimonial-video-wrapper-{{ ai_gen_id }}.is-unmuted .icon-off { display: none; }
+
+  /* Infos avis */
   .ai-testimonial-info-{{ ai_gen_id }} {
     display: flex;
     flex-direction: column;
@@ -131,7 +214,9 @@
   .ai-testimonial-author-header-{{ ai_gen_id }} {
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px 8px;
   }
 
   .ai-testimonial-author-name-{{ ai_gen_id }} {
@@ -142,9 +227,9 @@
   }
 
   .ai-testimonial-verified-{{ ai_gen_id }} {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
     font-size: {{ block.settings.verified_text_size }}px;
     color: {{ block.settings.verified_color }};
   }
@@ -159,59 +244,59 @@
   .ai-testimonial-review-text-{{ ai_gen_id }} {
     font-size: {{ block.settings.review_text_size }}px;
     color: {{ block.settings.review_text_color }};
-    text-align: center;
     line-height: 1.5;
     margin: 0;
-    max-width: {{ block.settings.image_size }}px;
   }
 
+  /* Barre de progression (interactive) */
   .ai-testimonial-progress-{{ ai_gen_id }} {
     width: 100%;
-    max-width: 600px;
+    max-width: {{ block.settings.progress_bar_width }}px;
+    padding: 10px 0;
+    cursor: pointer;
+    touch-action: none;
   }
 
-  .ai-testimonial-progress-bar-container-{{ ai_gen_id }} {
+  .ai-testimonial-track-{{ ai_gen_id }} {
     position: relative;
     width: 100%;
     height: {{ block.settings.progress_bar_height }}px;
     background: {{ block.settings.progress_bar_background }};
-    border-radius: {{ block.settings.progress_bar_radius }}px;
+    border-radius: 999px;
     overflow: hidden;
   }
 
-  .ai-testimonial-progress-fill-{{ ai_gen_id }} {
+  .ai-testimonial-thumb-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 100%;
+    width: 100%;
     background: {{ block.settings.progress_bar_fill_color }};
-    border-radius: {{ block.settings.progress_bar_radius }}px;
-    transition: width 0.8s ease-out;
+    border-radius: 999px;
+    will-change: transform, width;
+  }
+
+  .ai-testimonial-play-{{ ai_gen_id }}:focus-visible,
+  .ai-testimonial-sound-{{ ai_gen_id }}:focus-visible {
+    outline: 2px solid {{ block.settings.video_border_color }};
+    outline-offset: 2px;
   }
 
   @media screen and (max-width: 749px) {
     .ai-testimonial-title-{{ ai_gen_id }} {
       font-size: calc({{ block.settings.title_size }}px * 0.8);
     }
-
-    .ai-testimonial-card-{{ ai_gen_id }} {
-      width: calc({{ block.settings.image_size }}px * 0.8);
-    }
-
-    .ai-testimonial-image-wrapper-{{ ai_gen_id }} {
-      width: calc({{ block.settings.image_size }}px * 0.8);
-      height: calc({{ block.settings.image_size }}px * 0.8);
-    }
-
-    .ai-testimonial-review-text-{{ ai_gen_id }} {
-      max-width: calc({{ block.settings.image_size }}px * 0.8);
-    }
   }
 {% endstyle %}
 
 <testimonial-section-{{ ai_gen_id }}
   class="ai-testimonial-section-{{ ai_gen_id }}"
+  data-mode="{{ block.settings.video_mode }}"
   {{ block.shopify_attributes }}
 >
   <div class="ai-testimonial-container-{{ ai_gen_id }}">
-    <div class="ai-testimonial-stars-{{ ai_gen_id }}">
+    <div class="ai-testimonial-stars-{{ ai_gen_id }}" aria-hidden="true">
       {% for i in (1..5) %}
         <svg
           class="ai-testimonial-star-{{ ai_gen_id }}"
@@ -235,61 +320,88 @@
       <div class="ai-testimonial-gallery-{{ ai_gen_id }}" data-gallery>
         {% for i in (1..4) %}
           {% liquid
-            assign image_key = 'review_' | append: i | append: '_image'
+            assign video_key = 'review_' | append: i | append: '_video'
             assign name_key = 'review_' | append: i | append: '_name'
             assign review_key = 'review_' | append: i | append: '_text'
 
-            assign review_image = block.settings[image_key]
+            assign review_video = block.settings[video_key]
             assign review_name = block.settings[name_key]
             assign review_text = block.settings[review_key]
           %}
 
-          <div class="ai-testimonial-card-{{ ai_gen_id }}">
-            <div class="ai-testimonial-image-wrapper-{{ ai_gen_id }}">
-              {% if review_image %}
-                <img
-                  src="{{ review_image | image_url: width: 600 }}"
-                  alt="{{ review_name | escape }}"
-                  class="ai-testimonial-image-{{ ai_gen_id }}"
-                  loading="lazy"
-                  width="600"
-                  height="600"
-                >
-              {% else %}
-                <div class="ai-testimonial-image-placeholder-{{ ai_gen_id }}">
-                  {{ 'image' | placeholder_svg_tag }}
-                </div>
-              {% endif %}
-            </div>
+          {% if review_video != blank or review_name != blank or review_text != blank %}
+            <div class="ai-testimonial-card-{{ ai_gen_id }}">
+              <div class="ai-testimonial-video-wrapper-{{ ai_gen_id }}" data-video-wrapper>
+                {% if review_video != blank %}
+                  <video
+                    class="ai-testimonial-video-{{ ai_gen_id }}"
+                    playsinline
+                    preload="metadata"
+                    draggable="false"
+                    aria-label="{{ review_name | escape }}"
+                    {% if review_video.preview_image %}
+                      poster="{{ review_video.preview_image | image_url: width: 800 }}"
+                    {% endif %}
+                    {% if is_autoplay %}muted loop{% endif %}
+                  >
+                    {% for source in review_video.sources %}
+                      <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                    {% endfor %}
+                  </video>
 
-            <div class="ai-testimonial-info-{{ ai_gen_id }}">
-              <div class="ai-testimonial-author-header-{{ ai_gen_id }}">
-                {% if review_name != blank %}
-                  <p class="ai-testimonial-author-name-{{ ai_gen_id }}">{{ review_name }}</p>
+                  {% if is_autoplay %}
+                    <button
+                      type="button"
+                      class="ai-testimonial-sound-{{ ai_gen_id }}"
+                      data-sound
+                      aria-label="Activer / couper le son"
+                    >
+                      <svg viewBox="0 0 24 24" class="icon-off"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                      <svg viewBox="0 0 24 24" class="icon-on"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                    </button>
+                  {% else %}
+                    <button
+                      type="button"
+                      class="ai-testimonial-play-{{ ai_gen_id }}"
+                      data-play
+                      aria-label="Lire la vidéo"
+                    >
+                      <svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg>
+                    </button>
+                  {% endif %}
+                {% else %}
+                  <div class="ai-testimonial-placeholder-{{ ai_gen_id }}">
+                    {{ 'image' | placeholder_svg_tag }}
+                  </div>
                 {% endif %}
-                <div class="ai-testimonial-verified-{{ ai_gen_id }}">
-                  <span class="ai-testimonial-verified-dot-{{ ai_gen_id }}"></span>
-                  <span>{{ block.settings.verified_text }}</span>
-                </div>
               </div>
 
-              {% if review_text != blank %}
-                <p class="ai-testimonial-review-text-{{ ai_gen_id }}">{{ review_text }}</p>
-              {% endif %}
+              <div class="ai-testimonial-info-{{ ai_gen_id }}">
+                <div class="ai-testimonial-author-header-{{ ai_gen_id }}">
+                  {% if review_name != blank %}
+                    <p class="ai-testimonial-author-name-{{ ai_gen_id }}">{{ review_name }}</p>
+                  {% endif %}
+                  {% if block.settings.verified_text != blank %}
+                    <span class="ai-testimonial-verified-{{ ai_gen_id }}">
+                      <span class="ai-testimonial-verified-dot-{{ ai_gen_id }}"></span>
+                      {{ block.settings.verified_text }}
+                    </span>
+                  {% endif %}
+                </div>
+
+                {% if review_text != blank %}
+                  <p class="ai-testimonial-review-text-{{ ai_gen_id }}">{{ review_text }}</p>
+                {% endif %}
+              </div>
             </div>
-          </div>
+          {% endif %}
         {% endfor %}
       </div>
     </div>
 
-    <div class="ai-testimonial-progress-{{ ai_gen_id }}">
-      <div class="ai-testimonial-progress-bar-container-{{ ai_gen_id }}">
-        <div
-          class="ai-testimonial-progress-fill-{{ ai_gen_id }}"
-          data-progress-fill
-          style="width: 0%;"
-          data-target="{{ block.settings.progress_percentage }}"
-        ></div>
+    <div class="ai-testimonial-progress-{{ ai_gen_id }}" data-progress role="scrollbar" aria-label="Progression des avis">
+      <div class="ai-testimonial-track-{{ ai_gen_id }}" data-track>
+        <div class="ai-testimonial-thumb-{{ ai_gen_id }}" data-thumb></div>
       </div>
     </div>
   </div>
@@ -298,59 +410,168 @@
 <script>
   (function() {
     class TestimonialSection{{ ai_gen_id }} extends HTMLElement {
-      constructor() {
-        super();
-      }
-
       connectedCallback() {
+        this.ac = new AbortController();
         this.gallery = this.querySelector('[data-gallery]');
-        this.progressFill = this.querySelector('[data-progress-fill]');
-        
-        this.setupScrollBehavior();
-        this.animateProgress();
-      }
+        this.progress = this.querySelector('[data-progress]');
+        this.track = this.querySelector('[data-track]');
+        this.thumb = this.querySelector('[data-thumb]');
+        this.mode = this.dataset.mode;
+        this.wrappers = Array.from(this.querySelectorAll('[data-video-wrapper]'));
+        this.dragged = false;
 
-      setupScrollBehavior() {
         if (!this.gallery) return;
-
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        this.gallery.addEventListener('mousedown', (e) => {
-          isDown = true;
-          this.gallery.style.cursor = 'grabbing';
-          startX = e.pageX - this.gallery.offsetLeft;
-          scrollLeft = this.gallery.scrollLeft;
-        });
-
-        this.gallery.addEventListener('mouseleave', () => {
-          isDown = false;
-          this.gallery.style.cursor = 'grab';
-        });
-
-        this.gallery.addEventListener('mouseup', () => {
-          isDown = false;
-          this.gallery.style.cursor = 'grab';
-        });
-
-        this.gallery.addEventListener('mousemove', (e) => {
-          if (!isDown) return;
-          e.preventDefault();
-          const x = e.pageX - this.gallery.offsetLeft;
-          const walk = (x - startX) * 2;
-          this.gallery.scrollLeft = scrollLeft - walk;
-        });
+        this.setupDrag();
+        this.setupProgress();
+        this.setupVideos();
       }
 
-      animateProgress() {
-        if (!this.progressFill) return;
-        
-        const targetWidth = this.progressFill.getAttribute('data-target');
-        
-        setTimeout(() => {
-          this.progressFill.style.width = targetWidth + '%';
-        }, 300);
+      disconnectedCallback() {
+        if (this.ac) this.ac.abort();
+        if (this.io) this.io.disconnect();
+        if (this.ro) this.ro.disconnect();
+      }
+
+      /* Glisser à la souris (le tactile utilise le défilement natif) */
+      setupDrag() {
+        const g = this.gallery;
+        const signal = this.ac.signal;
+        let down = false, startX = 0, startLeft = 0;
+
+        g.addEventListener('pointerdown', (e) => {
+          if (e.pointerType !== 'mouse' || e.button !== 0) return;
+          down = true;
+          this.dragged = false;
+          startX = e.clientX;
+          startLeft = g.scrollLeft;
+        }, { signal });
+
+        window.addEventListener('pointermove', (e) => {
+          if (!down) return;
+          const dx = e.clientX - startX;
+          if (Math.abs(dx) > 5) {
+            this.dragged = true;
+            g.classList.add('is-dragging');
+          }
+          if (this.dragged) g.scrollLeft = startLeft - dx;
+        }, { signal });
+
+        window.addEventListener('pointerup', () => {
+          if (!down) return;
+          down = false;
+          g.classList.remove('is-dragging');
+          setTimeout(() => { this.dragged = false; }, 0);
+        }, { signal });
+
+        // Empêche le clic (lecture vidéo) après un glissement
+        g.addEventListener('click', (e) => {
+          if (this.dragged) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        }, { capture: true, signal });
+      }
+
+      /* Barre de progression : suit le défilement, cliquable et glissable */
+      setupProgress() {
+        const g = this.gallery;
+        const signal = this.ac.signal;
+        if (!this.thumb || !this.track || !this.progress) return;
+
+        const update = () => {
+          const max = g.scrollWidth - g.clientWidth;
+          const w = g.scrollWidth > 0 ? Math.min(1, g.clientWidth / g.scrollWidth) : 1;
+          const p = max > 0 ? g.scrollLeft / max : 0;
+          this.thumb.style.width = (w * 100) + '%';
+          this.thumb.style.transform = 'translateX(' + (p * (1 / w - 1) * 100) + '%)';
+        };
+
+        const scrollToPointer = (clientX) => {
+          const rect = this.track.getBoundingClientRect();
+          const max = g.scrollWidth - g.clientWidth;
+          if (max <= 0) return;
+          const w = Math.min(1, g.clientWidth / g.scrollWidth);
+          const thumbW = rect.width * w;
+          const travel = rect.width - thumbW;
+          if (travel <= 0) return;
+          const p = Math.min(1, Math.max(0, (clientX - rect.left - thumbW / 2) / travel));
+          g.scrollLeft = p * max;
+        };
+
+        let active = false;
+        this.progress.addEventListener('pointerdown', (e) => {
+          active = true;
+          this.progress.setPointerCapture(e.pointerId);
+          scrollToPointer(e.clientX);
+        }, { signal });
+        this.progress.addEventListener('pointermove', (e) => {
+          if (active) scrollToPointer(e.clientX);
+        }, { signal });
+        const stop = () => { active = false; };
+        this.progress.addEventListener('pointerup', stop, { signal });
+        this.progress.addEventListener('pointercancel', stop, { signal });
+
+        g.addEventListener('scroll', update, { passive: true, signal });
+        if ('ResizeObserver' in window) {
+          this.ro = new ResizeObserver(update);
+          this.ro.observe(g);
+        } else {
+          window.addEventListener('resize', update, { signal });
+        }
+        update();
+      }
+
+      /* Vidéos : lecture au clic, ou autoplay muet avec bouton son */
+      setupVideos() {
+        const signal = this.ac.signal;
+        const items = this.wrappers
+          .map((wrap) => ({ wrap, video: wrap.querySelector('video') }))
+          .filter((item) => item.video);
+
+        if (this.mode === 'autoplay') {
+          this.io = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              const v = entry.target;
+              if (entry.isIntersecting) {
+                const p = v.play();
+                if (p && p.catch) p.catch(() => {});
+              } else {
+                v.pause();
+              }
+            });
+          }, { threshold: 0.6 });
+
+          items.forEach(({ wrap, video }) => {
+            this.io.observe(video);
+            const toggleSound = () => {
+              const unmute = video.muted;
+              items.forEach((o) => {
+                o.video.muted = true;
+                o.wrap.classList.remove('is-unmuted');
+              });
+              if (unmute) {
+                video.muted = false;
+                wrap.classList.add('is-unmuted');
+              }
+            };
+            wrap.addEventListener('click', toggleSound, { signal });
+          });
+        } else {
+          items.forEach(({ wrap, video }) => {
+            wrap.addEventListener('click', () => {
+              if (video.paused) {
+                items.forEach((o) => { if (o.video !== video) o.video.pause(); });
+                const p = video.play();
+                if (p && p.catch) p.catch(() => {});
+              } else {
+                video.pause();
+              }
+            }, { signal });
+            video.addEventListener('play', () => wrap.classList.add('is-playing'), { signal });
+            video.addEventListener('pause', () => wrap.classList.remove('is-playing'), { signal });
+            video.addEventListener('ended', () => wrap.classList.remove('is-playing'), { signal });
+          });
+        }
       }
     }
 
@@ -360,19 +581,19 @@
 
 {% schema %}
 {
-  "name": "Témoignages clients",
+  "name": "Témoignages vidéo",
   "tag": null,
   "settings": [
     {
       "type": "header",
-      "content": "Espacement général"
+      "content": "Espacements généraux"
     },
     {
       "type": "range",
       "id": "spacing_top",
       "label": "Espacement haut",
       "min": 0,
-      "max": 100,
+      "max": 120,
       "step": 5,
       "unit": "px",
       "default": 40
@@ -382,7 +603,7 @@
       "id": "spacing_bottom",
       "label": "Espacement bas",
       "min": 0,
-      "max": 100,
+      "max": 120,
       "step": 5,
       "unit": "px",
       "default": 40
@@ -390,7 +611,7 @@
     {
       "type": "range",
       "id": "desktop_width_percent",
-      "label": "Largeur bureau",
+      "label": "Largeur sur ordinateur",
       "min": 50,
       "max": 100,
       "step": 5,
@@ -408,6 +629,12 @@
       "content": "Étoiles"
     },
     {
+      "type": "color",
+      "id": "star_color",
+      "label": "Couleur",
+      "default": "#ffc300"
+    },
+    {
       "type": "range",
       "id": "star_size",
       "label": "Taille des étoiles",
@@ -420,28 +647,22 @@
     {
       "type": "range",
       "id": "star_spacing",
-      "label": "Espacement entre étoiles",
+      "label": "Espacement entre les étoiles",
       "min": 0,
       "max": 20,
-      "step": 2,
+      "step": 1,
       "unit": "px",
       "default": 4
     },
     {
       "type": "range",
       "id": "stars_bottom_spacing",
-      "label": "Espacement sous étoiles",
-      "min": 10,
+      "label": "Espacement sous les étoiles",
+      "min": 0,
       "max": 60,
       "step": 5,
       "unit": "px",
-      "default": 30
-    },
-    {
-      "type": "color",
-      "id": "star_color",
-      "label": "Couleur",
-      "default": "#ffc300"
+      "default": 20
     },
     {
       "type": "header",
@@ -454,67 +675,69 @@
       "default": "Nos clients adorent nos produits"
     },
     {
-      "type": "range",
-      "id": "title_size",
-      "label": "Taille",
-      "min": 16,
-      "max": 60,
-      "step": 2,
-      "unit": "px",
-      "default": 36
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Police d'écriture",
+      "default": "poppins_n7"
     },
     {
       "type": "select",
       "id": "title_weight",
       "label": "Épaisseur",
       "options": [
-        {
-          "value": "normal",
-          "label": "Normal"
-        },
-        {
-          "value": "medium",
-          "label": "Moyen"
-        },
-        {
-          "value": "semibold",
-          "label": "Semi-gras"
-        },
-        {
-          "value": "bold",
-          "label": "Gras"
-        },
-        {
-          "value": "extrabold",
-          "label": "Extra-gras"
-        }
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Moyen" },
+        { "value": "600", "label": "Semi-gras" },
+        { "value": "700", "label": "Gras" },
+        { "value": "800", "label": "Extra-gras" },
+        { "value": "900", "label": "Noir (très épais)" }
       ],
-      "default": "bold"
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Taille",
+      "min": 16,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 36
     },
     {
       "type": "range",
       "id": "title_line_height",
-      "label": "Hauteur de ligne",
+      "label": "Espacement entre les lignes",
       "min": 0.8,
       "max": 2,
       "step": 0.1,
-      "default": 1.2
+      "default": 1.1
     },
     {
       "type": "range",
-      "id": "title_bottom_spacing",
-      "label": "Espacement bas",
-      "min": 5,
-      "max": 40,
-      "step": 5,
+      "id": "title_letter_spacing",
+      "label": "Espacement des lettres",
+      "min": -2,
+      "max": 5,
+      "step": 0.5,
       "unit": "px",
-      "default": 15
+      "default": 0
     },
     {
       "type": "color",
       "id": "title_color",
       "label": "Couleur",
       "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_bottom_spacing",
+      "label": "Espacement sous le titre",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 15
     },
     {
       "type": "header",
@@ -537,50 +760,72 @@
       "default": 14
     },
     {
-      "type": "range",
-      "id": "subtitle_bottom_spacing",
-      "label": "Espacement bas",
-      "min": 10,
-      "max": 60,
-      "step": 5,
-      "unit": "px",
-      "default": 40
-    },
-    {
       "type": "color",
       "id": "subtitle_color",
       "label": "Couleur",
       "default": "#666666"
     },
     {
+      "type": "range",
+      "id": "subtitle_bottom_spacing",
+      "label": "Espacement sous le sous-titre",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 35
+    },
+    {
       "type": "header",
-      "content": "Galerie"
+      "content": "Galerie de vidéos"
     },
     {
       "type": "range",
-      "id": "image_size",
-      "label": "Taille des images",
-      "min": 150,
-      "max": 400,
+      "id": "video_width",
+      "label": "Largeur des vidéos",
+      "min": 160,
+      "max": 420,
       "step": 10,
       "unit": "px",
       "default": 280
     },
     {
+      "type": "select",
+      "id": "video_ratio",
+      "label": "Format des vidéos",
+      "options": [
+        { "value": "1 / 1", "label": "Carré (1:1)" },
+        { "value": "4 / 5", "label": "Portrait (4:5)" },
+        { "value": "9 / 16", "label": "Vertical (9:16)" },
+        { "value": "16 / 9", "label": "Paysage (16:9)" }
+      ],
+      "default": "4 / 5"
+    },
+    {
+      "type": "select",
+      "id": "gallery_align",
+      "label": "Position des vidéos",
+      "options": [
+        { "value": "left", "label": "Premier avis à gauche" },
+        { "value": "center", "label": "Centré" }
+      ],
+      "default": "left"
+    },
+    {
       "type": "range",
-      "id": "image_gap",
-      "label": "Espacement entre images",
-      "min": 10,
-      "max": 50,
+      "id": "video_gap",
+      "label": "Espacement entre les vidéos",
+      "min": 0,
+      "max": 60,
       "step": 5,
       "unit": "px",
       "default": 20
     },
     {
       "type": "range",
-      "id": "image_bottom_spacing",
-      "label": "Espacement sous image",
-      "min": 5,
+      "id": "video_bottom_spacing",
+      "label": "Espacement sous la vidéo",
+      "min": 0,
       "max": 40,
       "step": 5,
       "unit": "px",
@@ -590,16 +835,16 @@
       "type": "range",
       "id": "reviews_to_progress_spacing",
       "label": "Espacement avis vers barre",
-      "min": 10,
+      "min": 0,
       "max": 80,
       "step": 5,
       "unit": "px",
-      "default": 40
+      "default": 20
     },
     {
       "type": "range",
-      "id": "image_border_width",
-      "label": "Épaisseur bordure",
+      "id": "video_border_width",
+      "label": "Épaisseur de la bordure",
       "min": 0,
       "max": 10,
       "step": 1,
@@ -608,28 +853,54 @@
     },
     {
       "type": "range",
-      "id": "image_border_radius",
-      "label": "Arrondi bordure",
+      "id": "video_border_radius",
+      "label": "Arrondi de la bordure",
       "min": 0,
       "max": 40,
       "step": 2,
       "unit": "px",
-      "default": 12
+      "default": 16
     },
     {
       "type": "color",
-      "id": "image_border_color",
-      "label": "Couleur bordure",
+      "id": "video_border_color",
+      "label": "Couleur de la bordure",
       "default": "#c2fb56"
+    },
+    {
+      "type": "header",
+      "content": "Lecture des vidéos"
+    },
+    {
+      "type": "select",
+      "id": "video_mode",
+      "label": "Mode de lecture",
+      "options": [
+        { "value": "click", "label": "Au clic (avec le son)" },
+        { "value": "autoplay", "label": "Automatique, muet (clic = son)" }
+      ],
+      "default": "click"
+    },
+    {
+      "type": "color",
+      "id": "play_button_color",
+      "label": "Fond du bouton lecture / son",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "play_icon_color",
+      "label": "Couleur de l'icône",
+      "default": "#000000"
     },
     {
       "type": "header",
       "content": "Avis 1"
     },
     {
-      "type": "image_picker",
-      "id": "review_1_image",
-      "label": "Image"
+      "type": "video",
+      "id": "review_1_video",
+      "label": "Vidéo"
     },
     {
       "type": "text",
@@ -648,9 +919,9 @@
       "content": "Avis 2"
     },
     {
-      "type": "image_picker",
-      "id": "review_2_image",
-      "label": "Image"
+      "type": "video",
+      "id": "review_2_video",
+      "label": "Vidéo"
     },
     {
       "type": "text",
@@ -669,9 +940,9 @@
       "content": "Avis 3"
     },
     {
-      "type": "image_picker",
-      "id": "review_3_image",
-      "label": "Image"
+      "type": "video",
+      "id": "review_3_video",
+      "label": "Vidéo"
     },
     {
       "type": "text",
@@ -687,38 +958,52 @@
     },
     {
       "type": "header",
-      "content": "Avis 4"
+      "content": "Avis 4 (optionnel, masqué si vide)"
     },
     {
-      "type": "image_picker",
-      "id": "review_4_image",
-      "label": "Image"
+      "type": "video",
+      "id": "review_4_video",
+      "label": "Vidéo"
     },
     {
       "type": "text",
       "id": "review_4_name",
-      "label": "Nom prénom",
-      "default": "Thomas Petit"
+      "label": "Nom prénom"
     },
     {
       "type": "textarea",
       "id": "review_4_text",
-      "label": "Avis",
-      "default": "Livraison rapide et service client très réactif, je recommande !"
+      "label": "Avis"
     },
     {
       "type": "header",
-      "content": "Style avis"
+      "content": "Style des avis"
     },
     {
       "type": "range",
       "id": "info_gap",
       "label": "Espacement entre nom et avis",
-      "min": 4,
+      "min": 0,
       "max": 20,
       "step": 2,
       "unit": "px",
       "default": 8
+    },
+    {
+      "type": "range",
+      "id": "author_name_size",
+      "label": "Taille du nom",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "author_name_color",
+      "label": "Couleur du nom",
+      "default": "#000000"
     },
     {
       "type": "text",
@@ -729,7 +1014,7 @@
     {
       "type": "range",
       "id": "verified_text_size",
-      "label": "Taille texte vérifié",
+      "label": "Taille du texte vérifié",
       "min": 8,
       "max": 16,
       "step": 1,
@@ -739,29 +1024,13 @@
     {
       "type": "color",
       "id": "verified_color",
-      "label": "Couleur vérifié",
+      "label": "Couleur du texte et du point",
       "default": "#00a341"
     },
     {
       "type": "range",
-      "id": "author_name_size",
-      "label": "Taille nom",
-      "min": 12,
-      "max": 24,
-      "step": 1,
-      "unit": "px",
-      "default": 16
-    },
-    {
-      "type": "color",
-      "id": "author_name_color",
-      "label": "Couleur nom",
-      "default": "#000000"
-    },
-    {
-      "type": "range",
       "id": "review_text_size",
-      "label": "Taille texte avis",
+      "label": "Taille du texte de l'avis",
       "min": 12,
       "max": 20,
       "step": 1,
@@ -771,7 +1040,7 @@
     {
       "type": "color",
       "id": "review_text_color",
-      "label": "Couleur texte avis",
+      "label": "Couleur du texte de l'avis",
       "default": "#666666"
     },
     {
@@ -780,50 +1049,40 @@
     },
     {
       "type": "range",
-      "id": "progress_percentage",
-      "label": "Pourcentage progression",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "%",
-      "default": 100
+      "id": "progress_bar_width",
+      "label": "Largeur maximale",
+      "min": 120,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "default": 240
     },
     {
       "type": "range",
       "id": "progress_bar_height",
-      "label": "Hauteur barre",
-      "min": 2,
+      "label": "Épaisseur",
+      "min": 1,
       "max": 10,
       "step": 1,
       "unit": "px",
-      "default": 4
-    },
-    {
-      "type": "range",
-      "id": "progress_bar_radius",
-      "label": "Arrondi barre",
-      "min": 0,
-      "max": 10,
-      "step": 1,
-      "unit": "px",
-      "default": 2
+      "default": 3
     },
     {
       "type": "color",
       "id": "progress_bar_background",
-      "label": "Couleur fond barre",
+      "label": "Couleur du fond",
       "default": "#e0e0e0"
     },
     {
       "type": "color",
       "id": "progress_bar_fill_color",
-      "label": "Couleur remplissage",
+      "label": "Couleur de la barre",
       "default": "#c2fb56"
     }
   ],
   "presets": [
     {
-      "name": "Témoignages clients"
+      "name": "Témoignages vidéo"
     }
   ]
 }
