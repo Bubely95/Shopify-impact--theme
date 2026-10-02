@@ -1,174 +1,234 @@
 {% doc %}
   @prompt
-    avis étoile 
+    Section simple : un titre (police, taille, couleur modifiables) puis une vidéo carrée 1:1 aux bords arrondis juste en dessous. Réglages : espacement entre le titre et la vidéo, espacement haut et bas de la section.
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
+{% liquid
+  assign title_font = block.settings.title_font
+%}
+
 {% style %}
-  .ai-star-rating-{{ ai_gen_id }} {
+  {{ title_font | font_face: font_display: 'swap' }}
+
+  .ai-video-section-{{ ai_gen_id }} {
     display: block;
     width: 100%;
-    max-width: 100%;
-    color: {{ block.settings.text_color }};
-    font-family: inherit;
+    padding-top: {{ block.settings.spacing_top }}px;
+    padding-bottom: {{ block.settings.spacing_bottom }}px;
+    background-color: {{ block.settings.background_color }};
   }
 
-  .ai-star-rating-{{ ai_gen_id }}__inner {
+  .ai-video-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .ai-video-title-{{ ai_gen_id }} {
+    font-family: {{ title_font.family }}, {{ title_font.fallback_families }};
+    font-weight: {{ title_font.weight }};
+    font-style: {{ title_font.style }};
+    font-size: {{ block.settings.title_size }}px;
+    line-height: 1.2;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.title_video_spacing }}px 0;
+  }
+
+  .ai-video-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: min({{ block.settings.video_width }}px, 100%);
+    aspect-ratio: 1 / 1;
+    border-radius: {{ block.settings.video_radius }}px;
+    overflow: hidden;
+    background-color: #f4f4f4;
+  }
+
+  .ai-video-{{ ai_gen_id }} {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-video-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
-    justify-content: {{ block.settings.alignment }};
-    gap: 8px;
-    width: {{ block.settings.desktop_width_percent }}%;
-    max-width: 100%;
-    line-height: 1.4;
+    justify-content: center;
   }
 
-  .ai-star-rating-{{ ai_gen_id }}__stars {
-    display: inline-flex;
-    gap: 2px;
-    color: {{ block.settings.star_color }};
-    flex: 0 0 auto;
+  .ai-video-placeholder-{{ ai_gen_id }} svg {
+    width: 50%;
+    height: 50%;
+    opacity: 0.4;
   }
 
-  .ai-star-rating-{{ ai_gen_id }}__star {
-    display: block;
-    width: {{ block.settings.star_size }}px;
-    height: {{ block.settings.star_size }}px;
-  }
-
-  .ai-star-rating-{{ ai_gen_id }}__star--empty {
-    color: {{ block.settings.empty_star_color }};
-  }
-
-  .ai-star-rating-{{ ai_gen_id }}__value {
-    color: {{ block.settings.text_color }};
-    font-size: {{ block.settings.text_size }}px;
-    font-weight: 600;
-    white-space: nowrap;
-  }
-
-  .ai-star-rating-{{ ai_gen_id }}__count {
-    color: {{ block.settings.text_color }};
-    font-size: {{ block.settings.text_size }}px;
+  @media screen and (max-width: 749px) {
+    .ai-video-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.8);
+    }
   }
 {% endstyle %}
 
-<div class="ai-star-rating-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
-  <div class="ai-star-rating-{{ ai_gen_id }}__inner" role="img" aria-label="Note : {{ block.settings.rating }} sur 5{% if block.settings.review_count > 0 %}, {{ block.settings.review_count }} avis{% endif %}">
-    <span class="ai-star-rating-{{ ai_gen_id }}__stars" aria-hidden="true">
-      {% for i in (1..5) %}
-        {% if i <= block.settings.rating %}
-          <svg class="ai-star-rating-{{ ai_gen_id }}__star" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 2.4 14.95 8.38l6.6.96-4.78 4.66 1.13 6.58L12 17.47l-5.9 3.11 1.13-6.58-4.78-4.66 6.6-.96L12 2.4Z"/></svg>
-        {% else %}
-          <svg class="ai-star-rating-{{ ai_gen_id }}__star ai-star-rating-{{ ai_gen_id }}__star--empty" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12 2.4 14.95 8.38l6.6.96-4.78 4.66 1.13 6.58L12 17.47l-5.9 3.11 1.13-6.58-4.78-4.66 6.6-.96L12 2.4Z"/></svg>
-        {% endif %}
-      {% endfor %}
-    </span>
-    {% if block.settings.show_rating %}<span class="ai-star-rating-{{ ai_gen_id }}__value">{{ block.settings.rating }} / 5</span>{% endif %}
-    {% if block.settings.show_count and block.settings.review_count > 0 %}<span class="ai-star-rating-{{ ai_gen_id }}__count">({{ block.settings.review_count }} avis)</span>{% endif %}
+<div class="ai-video-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-video-container-{{ ai_gen_id }}">
+    {% if block.settings.title != blank %}
+      <h2 class="ai-video-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+    {% endif %}
+
+    <div class="ai-video-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.video != blank %}
+        <video
+          class="ai-video-{{ ai_gen_id }}"
+          playsinline
+          preload="metadata"
+          {% if block.settings.autoplay %}
+            autoplay muted loop
+          {% else %}
+            controls
+          {% endif %}
+          {% if block.settings.video.preview_image %}
+            poster="{{ block.settings.video.preview_image | image_url: width: 1000 }}"
+          {% endif %}
+        >
+          {% for source in block.settings.video.sources %}
+            <source src="{{ source.url }}" type="{{ source.mime_type }}">
+          {% endfor %}
+        </video>
+      {% else %}
+        <div class="ai-video-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+    </div>
   </div>
 </div>
 
 {% schema %}
 {
-  "name": "Avis étoilé",
+  "name": "Titre + vidéo",
+  "tag": null,
   "settings": [
     {
-      "type": "range",
-      "id": "desktop_width_percent",
-      "label": "Largeur sur ordinateur",
-      "min": 50,
-      "max": 100,
-      "step": 5,
-      "unit": "%",
-      "default": 100
+      "type": "header",
+      "content": "Espacements"
     },
     {
       "type": "range",
-      "id": "rating",
-      "label": "Note sur 5",
-      "min": 1,
-      "max": 5,
-      "step": 1,
-      "default": 5
-    },
-    {
-      "type": "range",
-      "id": "review_count",
-      "label": "Nombre d’avis",
+      "id": "spacing_top",
+      "label": "Espacement haut de la section",
       "min": 0,
-      "max": 1000,
-      "step": 10,
-      "default": 100
-    },
-    {
-      "type": "checkbox",
-      "id": "show_rating",
-      "label": "Afficher la note",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_count",
-      "label": "Afficher le nombre d’avis",
-      "default": true
-    },
-    {
-      "type": "select",
-      "id": "alignment",
-      "label": "Alignement",
-      "options": [
-        { "value": "flex-start", "label": "À gauche" },
-        { "value": "center", "label": "Au centre" },
-        { "value": "flex-end", "label": "À droite" }
-      ],
-      "default": "flex-start"
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 40
     },
     {
       "type": "range",
-      "id": "star_size",
-      "label": "Taille des étoiles",
-      "min": 12,
-      "max": 40,
+      "id": "spacing_bottom",
+      "label": "Espacement bas de la section",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "title_video_spacing",
+      "label": "Espacement entre le titre et la vidéo",
+      "min": 0,
+      "max": 80,
       "step": 2,
       "unit": "px",
       "default": 20
     },
     {
+      "type": "color",
+      "id": "background_color",
+      "label": "Couleur de fond",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Titre"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Découvrez notre produit en vidéo"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Police d'écriture",
+      "default": "poppins_n7"
+    },
+    {
       "type": "range",
-      "id": "text_size",
-      "label": "Taille du texte",
-      "min": 12,
-      "max": 24,
+      "id": "title_size",
+      "label": "Taille du titre",
+      "min": 16,
+      "max": 72,
       "step": 2,
       "unit": "px",
-      "default": 14
+      "default": 32
     },
     {
       "type": "color",
-      "id": "star_color",
-      "label": "Couleur des étoiles",
-      "default": "#A66B00"
+      "id": "title_color",
+      "label": "Couleur du titre",
+      "default": "#000000"
     },
     {
-      "type": "color",
-      "id": "empty_star_color",
-      "label": "Étoiles non remplies",
-      "default": "#767676"
+      "type": "header",
+      "content": "Vidéo"
     },
     {
-      "type": "color",
-      "id": "text_color",
-      "label": "Couleur du texte",
-      "default": "#1A1A1A"
+      "type": "video",
+      "id": "video",
+      "label": "Vidéo"
+    },
+    {
+      "type": "range",
+      "id": "video_width",
+      "label": "Largeur maximale de la vidéo",
+      "min": 200,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "video_radius",
+      "label": "Arrondi des bords",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Lecture automatique (muette, en boucle)",
+      "default": false
     }
   ],
   "presets": [
     {
-      "name": "Avis étoilé"
+      "name": "Titre + vidéo"
     }
-  ],
-  "tag": null,
-  "class": "star-rating-block"
+  ]
 }
 {% endschema %}
