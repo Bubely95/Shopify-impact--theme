@@ -66,6 +66,41 @@
           "settings": {
             "liquid": "<link href=\"https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">\n\n<style>\n  .tmg-wrap {\n    font-family: 'Poppins', sans-serif;\n    padding: 4px 0;\n    max-width: 480px;\n  }\n\n  .tmg-card {\n    background: #FFFFFF;\n    border-radius: 14px;\n    overflow: hidden;\n    border: 1.5px solid #1092F0;\n    box-shadow: 0 6px 18px rgba(16, 146, 240, 0.18);\n  }\n\n  .tmg-top {\n    background: linear-gradient(135deg, #1092F0 0%, #0D7BCB 100%);\n    padding: 14px 16px;\n    display: flex;\n    align-items: center;\n    gap: 12px;\n    border-bottom: 3px solid #FBB713;\n  }\n\n  .tmg-avatar {\n    width: 48px;\n    height: 48px;\n    border-radius: 50%;\n    border: 2.5px solid #FBB713;\n    object-fit: cover;\n    flex-shrink: 0;\n    background: #FFFFFF;\n  }\n\n  .tmg-info {\n    flex: 1;\n    min-width: 0;\n  }\n\n  .tmg-name {\n    font-size: 14px;\n    font-weight: 700;\n    color: #FFFFFF;\n    margin: 0;\n    line-height: 1.2;\n  }\n\n  .tmg-badge {\n    display: inline-flex;\n    align-items: center;\n    gap: 4px;\n    background: #FBB713;\n    color: #000000;\n    font-size: 10px;\n    font-weight: 600;\n    padding: 3px 9px;\n    border-radius: 20px;\n    margin-top: 5px;\n  }\n\n  .tmg-stars {\n    display: flex;\n    gap: 2px;\n    align-items: center;\n    flex-shrink: 0;\n  }\n\n  .tmg-body {\n    padding: 16px 18px 18px;\n    display: flex;\n    align-items: flex-start;\n    gap: 12px;\n    background: #FFFFFF;\n  }\n\n  .tmg-quote-icon {\n    flex-shrink: 0;\n    margin-top: 2px;\n  }\n\n  .tmg-text {\n    font-size: 13px;\n    font-weight: 400;\n    color: #4A4A4A;\n    line-height: 1.7;\n    margin: 0;\n  }\n\n  .tmg-text strong {\n    color: #0D7BCB;\n    font-weight: 700;\n  }\n</style>\n\n<div class=\"tmg-wrap\">\n  <div class=\"tmg-card\">\n    <div class=\"tmg-top\">\n      <img class=\"tmg-avatar\"\n        src=\"https://cdn.shopify.com/s/files/1/1084/7846/4337/files/71aPIErhGSL.jpg?v=1790957388\"\n        alt=\"Client vérifié\" />\n      <div class=\"tmg-info\">\n        <p class=\"tmg-name\">Iris Rossi</p>\n        <div class=\"tmg-badge\">\n          <svg width=\"10\" height=\"10\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z\" stroke=\"#000000\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          </svg>\n          Acheteur vérifié\n        </div>\n      </div>\n      <div class=\"tmg-stars\">\n        <svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"#FBB713\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"/></svg>\n        <svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"#FBB713\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"/></svg>\n        <svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"#FBB713\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"/></svg>\n        <svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"#FBB713\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"/></svg>\n        <svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"#FBB713\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"/></svg>\n      </div>\n    </div>\n    <div class=\"tmg-body\">\n      <div class=\"tmg-quote-icon\">\n        <svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"#FBB713\" xmlns=\"http://www.w3.org/2000/svg\">\n          <path d=\"M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z\"/>\n        </svg>\n      </div>\n      <p class=\"tmg-text\">\n        Tableau lumineux <strong>original et amusant</strong>. Les enfants peuvent <strong>dessiner, effacer et recommencer facilement</strong>, et l’<strong>éclairage LED</strong> donne un très joli rendu aux créations. Une activité créative qui <strong>change des écrans</strong> et qui peut les occuper un bon moment.\n      </p>\n    </div>\n  </div>\n</div>"
           }
+        },
+        "collapsible_text_yVJRad": {
+          "type": "collapsible_text",
+          "settings": {
+            "title": "Caractéristiques",
+            "content": "<ul><li><strong>Dimensions :</strong> 30 × 20 cm | 20 x 20cm</li><li><strong>Éclairage LED :</strong> un rendu lumineux et éclatant pour chaque dessin</li><li><strong>Alimentation :</strong> câble USB inclus</li><li><strong>7 marqueurs fluorescents</strong> réutilisables fournis</li><li><strong>Surface effaçable à l'infini,</strong> avec chiffon doux inclus</li><li><strong>Matériaux durables :</strong> acrylique et plastique ABS</li><li><strong>Âge recommandé :</strong> de 3 à 14 ans</li><li><strong>Faible consommation :</strong> compatible avec les chargeurs USB standard</li><li><strong>Résistant aux éclaboussures (IP44) :</strong> ne pas immerger</li></ul>"
+          }
+        },
+        "collapsible_text_Aygc4n": {
+          "type": "collapsible_text",
+          "settings": {
+            "title": "Mode d'emploi et utilisation",
+            "content": "<p><strong>1. Branchez la tablette</strong><br/>Connectez simplement la tablette pour activer l’éclairage.</p><p><strong>2. L’enfant dessine ou écrit</strong><br/>Utilisez les stylos magiques pour dessiner, écrire ou faire des exercices.</p><p><strong>3. Effet lumineux magique</strong><br/>Les tracés s’illuminent instantanément pour rendre l’activité plus ludique.</p><p><strong>4. Effacez facilement</strong><br/>Un simple geste suffit pour effacer et recommencer.</p><p><strong>5. Réutilisable à l’infini</strong><br/>La tablette peut être utilisée encore et encore, sans limite.</p>"
+          }
+        },
+        "collapsible_text_hEnf9a": {
+          "type": "collapsible_text",
+          "settings": {
+            "title": "Contenu du colis",
+            "content": "<p>Chaque commande inclut :</p><p>• 1x&nbsp;<strong>Tablette LED magique™</strong><br/><br/>• 7x&nbsp;<strong>Stylos lumineux multicolores</strong><br/><br/>• 1x&nbsp;<strong>Câble USB de recharge</strong><br/><br/>• 1x&nbsp;<strong>Guide d’utilisation</strong></p>"
+          }
+        },
+        "collapsible_text_mrC4YQ": {
+          "type": "collapsible_text",
+          "settings": {
+            "title": "Expédition et suivi",
+            "content": "<p><strong>Expédition sous 24 à 48 heures</strong> – <strong>suivi disponible</strong> dès que la commande est expédiée.<br/><strong>Livraison standard : 8 à 10 jours ouvrés</strong></p>"
+          }
+        },
+        "collapsible_text_hAUi3Y": {
+          "type": "collapsible_text",
+          "settings": {
+            "title": "Garantie et retours",
+            "content": "<p><strong>Essai sans risque de 30 jours</strong> : Essayez-les pendant <strong>30 jours</strong> ; si vous n’êtes pas satisfait, vous serez <strong>intégralement remboursé</strong>.<br/></p><p><strong>Assistance humaine et personnalisée</strong> : Une question ? Notre équipe est là pour vous <strong>accompagner à chaque étape</strong>.</p>"
+          }
         }
       },
       "block_order": [
@@ -77,7 +112,12 @@
         "buy_buttons",
         "conversion_bear_trust_badges_widget_KWmADn",
         "liquid_MCzYxd",
-        "liquid_RtUpDD"
+        "liquid_RtUpDD",
+        "collapsible_text_yVJRad",
+        "collapsible_text_Aygc4n",
+        "collapsible_text_hEnf9a",
+        "collapsible_text_mrC4YQ",
+        "collapsible_text_hAUi3Y"
       ],
       "settings": {
         "full_width": true,
