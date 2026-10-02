@@ -137,31 +137,30 @@
         "input_text_color": ""
       }
     },
-    "related-products": {
-      "type": "related-products",
-      "settings": {
-        "recommendations_count": 6,
-        "products": [],
-        "full_width": true,
-        "stack_products": true,
-        "show_progress_bar": false,
-        "products_per_row_mobile": "1",
-        "products_per_row_desktop": 3,
-        "subheading": "",
-        "title": "You may also like",
-        "content": "",
-        "background": "",
-        "background_gradient": "",
-        "text_color": "",
-        "heading_color": "",
-        "heading_gradient": "",
-        "product_card_background": "",
-        "product_card_text_color": ""
-      }
+    "1790959701978bea9a": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_7890acd_xHtkdN": {
+          "type": "ai_gen_block_7890acd",
+          "settings": {
+            "heading": "Un avis client",
+            "rating": 5,
+            "reviewer": "",
+            "show_verified": false,
+            "review_text": "<p>Ajoutez ici un avis client authentique.</p>",
+            "desktop_width_percent": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_7890acd_xHtkdN"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "main",
-    "related-products"
+    "1790959701978bea9a"
   ]
 }
