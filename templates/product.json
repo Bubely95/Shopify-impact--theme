@@ -146,7 +146,7 @@
             "spacing_top": 40,
             "spacing_bottom": 25,
             "desktop_width_percent": 100,
-            "background_color": "#FFC300",
+            "background_color": "#ffc300",
             "star_color": "#000000",
             "star_size": 24,
             "star_spacing": 0,
@@ -171,7 +171,7 @@
             "reviews_to_progress_spacing": 25,
             "video_border_width": 3,
             "video_border_radius": 12,
-            "video_border_color": "#1092F0",
+            "video_border_color": "#1092f0",
             "video_mode": "autoplay",
             "play_button_color": "#ffffff",
             "play_icon_color": "#000000",
@@ -191,13 +191,13 @@
             "author_name_color": "#000000",
             "verified_text": "Vérifié",
             "verified_text_size": 12,
-            "verified_color": "#F01010",
+            "verified_color": "#f01010",
             "review_text_size": 14,
             "review_text_color": "#000000",
             "progress_bar_width": 240,
             "progress_bar_height": 3,
             "progress_bar_background": "#e0e0e0",
-            "progress_bar_fill_color": "#1092F0"
+            "progress_bar_fill_color": "#1092f0"
           },
           "blocks": {}
         }
@@ -213,17 +213,17 @@
         "ai_gen_block_784f7bd_CMTHWa": {
           "type": "ai_gen_block_784f7bd",
           "settings": {
-            "desktop_width_percent": 100,
-            "rating": 5,
-            "review_count": 100,
-            "show_rating": true,
-            "show_count": true,
-            "alignment": "flex-start",
-            "star_size": 20,
-            "text_size": 14,
-            "star_color": "#A66B00",
-            "empty_star_color": "#767676",
-            "text_color": "#1A1A1A"
+            "spacing_top": 40,
+            "spacing_bottom": 40,
+            "title_video_spacing": 20,
+            "background_color": "#ffffff",
+            "title": "Découvrez notre produit en vidéo",
+            "title_font": "gluten_n8",
+            "title_size": 50,
+            "title_color": "#000000",
+            "video_width": 500,
+            "video_radius": 20,
+            "autoplay": false
           },
           "blocks": {}
         }
