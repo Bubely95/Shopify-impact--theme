@@ -306,6 +306,59 @@
         "background_gradient": "",
         "text_color": ""
       }
+    },
+    "faq_nz9dRB": {
+      "type": "faq",
+      "blocks": {
+        "item_6FCgtt": {
+          "type": "item",
+          "settings": {
+            "title": "Do you ship overseas?",
+            "content": "<p>Yes, we ship all over the world. Shipping costs will apply, and will be added at checkout. We run discounts and promotions all year, so stay tuned for exclusive deals.</p>"
+          }
+        },
+        "item_gYWiPT": {
+          "type": "item",
+          "settings": {
+            "title": "How long will it take to get my orders?",
+            "content": "<p>It depends on where you are. Orders processed here will take 5-7 business days to arrive. Overseas deliveries can take anywhere from 7-16 days. Delivery details will be provided in your confirmation email.</p>"
+          }
+        },
+        "item_pWCgXD": {
+          "type": "item",
+          "settings": {
+            "title": "Any question?",
+            "content": "<p>You can contact us through our contact page! We will be happy to assist you.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_6FCgtt",
+        "item_gYWiPT",
+        "item_pWCgXD"
+      ],
+      "name": "FAQ",
+      "settings": {
+        "full_width": true,
+        "subheading": "Nous répondons à tout",
+        "title": "Vous avez des questions ?",
+        "content": "",
+        "team_avatar_width": 160,
+        "support_hours": "email: contact@bubely.com",
+        "answer_time": "",
+        "button_text": "",
+        "button_url": "",
+        "text_position": "center",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "button_background": "",
+        "button_text_color": "",
+        "accordion_background": "",
+        "accordion_text_color": ""
+      }
     }
   },
   "order": [
@@ -314,6 +367,7 @@
     "1790975492aa290c28",
     "17910072672bede86e",
     "multiple_images_with_text_P4FmPr",
-    "custom_liquid_cziaK4"
+    "custom_liquid_cziaK4",
+    "faq_nz9dRB"
   ]
 }
