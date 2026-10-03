@@ -237,11 +237,37 @@
         "ai_gen_block_784f7bd_CMTHWa"
       ],
       "settings": {}
+    },
+    "17910072672bede86e": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_5cd88f6_7eHMxC": {
+          "type": "ai_gen_block_5cd88f6",
+          "settings": {
+            "messages": "Dès 3 ans\nGarantie 30 jours\nLivraison gratuite",
+            "accessibility_label": "Informations de la boutique",
+            "desktop_width_percent": 100,
+            "text_font": "gluten_n7",
+            "text_size": 17,
+            "background_color": "#1092F0",
+            "text_color": "#FFFFFF",
+            "vertical_padding": 16,
+            "message_spacing": 32,
+            "speed": 15
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_5cd88f6_7eHMxC"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "main",
     "1790959701978bea9a",
-    "1790975492aa290c28"
+    "1790975492aa290c28",
+    "17910072672bede86e"
   ]
 }
