@@ -12,6 +12,18 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "cwilltrustoo_reviews_star_rating_widget_AcBQeB": {
+          "type": "shopify://apps/cwilltrustoo-reviews/blocks/star-rating-widget/c8f15077-6475-4e86-ad06-b66038d5ba2c",
+          "settings": {
+            "star_size": 20,
+            "font_size": 16,
+            "text_color": "#000000",
+            "block_aligment": "left",
+            "rating_decimal_places": "1",
+            "margin_top": 10,
+            "margin_bottom": 0
+          }
+        },
         "title": {
           "type": "title",
           "settings": {
@@ -104,6 +116,7 @@
         }
       },
       "block_order": [
+        "cwilltrustoo_reviews_star_rating_widget_AcBQeB",
         "title",
         "liquid_DUxQka",
         "image_M9EpiE",
@@ -249,8 +262,8 @@
             "desktop_width_percent": 100,
             "text_font": "gluten_n7",
             "text_size": 17,
-            "background_color": "#1092F0",
-            "text_color": "#FFFFFF",
+            "background_color": "#1092f0",
+            "text_color": "#ffffff",
             "vertical_padding": 16,
             "message_spacing": 32,
             "speed": 15
@@ -388,7 +401,7 @@
         "heading_gradient": "",
         "button_background": "",
         "button_text_color": "",
-        "accordion_background": "#FFC300",
+        "accordion_background": "#ffc300",
         "accordion_text_color": "#000000"
       }
     },
@@ -406,7 +419,7 @@
             "mobile_bottom_spacing": 30,
             "show_divider": false,
             "divider_height": 1,
-            "divider_color": "#D9DEE1",
+            "divider_color": "#d9dee1",
             "corner_radius": 0
           },
           "blocks": {}
@@ -427,8 +440,8 @@
             "mobile_icon_width": 36,
             "icon_width": 32,
             "icon_background_type": "circle",
-            "icon_background": "#1092F0",
-            "icon_color": "#FFFFFF",
+            "icon_background": "#1092f0",
+            "icon_color": "#ffffff",
             "title": "Paiement sécurisé",
             "content": ""
           }
@@ -440,8 +453,8 @@
             "mobile_icon_width": 36,
             "icon_width": 32,
             "icon_background_type": "circle",
-            "icon_background": "#1092F0",
-            "icon_color": "#FFFFFF",
+            "icon_background": "#1092f0",
+            "icon_color": "#ffffff",
             "title": "Essai gratuit de 30 jours",
             "content": ""
           }
@@ -453,8 +466,8 @@
             "mobile_icon_width": 36,
             "icon_width": 32,
             "icon_background_type": "circle",
-            "icon_background": "#1092F0",
-            "icon_color": "#FFFFFF",
+            "icon_background": "#1092f0",
+            "icon_color": "#ffffff",
             "title": "Livraison gratuite",
             "content": ""
           }
