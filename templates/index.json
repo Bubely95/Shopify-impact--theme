@@ -120,10 +120,71 @@
       ],
       "name": "Témoignages vidéo",
       "settings": {}
+    },
+    "featured_product_TkwJ38": {
+      "type": "featured-product",
+      "blocks": {
+        "title_Mmj4TC": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h2"
+          }
+        },
+        "buy_buttons_m8VcNj": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": false,
+            "show_gift_card_recipient": true,
+            "atc_button_background": "#FFC300",
+            "atc_button_text_color": "#000000",
+            "payment_button_background": "",
+            "payment_button_text_color": ""
+          }
+        },
+        "liquid_mLikd6": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "<link href=\"https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap\" rel=\"stylesheet\">\n<div class=\"bullets\">\n  <div class=\"bullet-item\">\n    <div class=\"icon-wrap\">\n      <svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n        <circle cx=\"12\" cy=\"12\" r=\"12\" fill=\"#FBB713\"/>\n        <path d=\"M7 12.5l3.3 3.3L17 9\" stroke=\"#000000\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n      </svg>\n    </div>\n    <span class=\"bullet-text\">Stimule la créativité et l'imagination</span>\n  </div>\n  <div class=\"bullet-item\">\n    <div class=\"icon-wrap\">\n      <svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n        <circle cx=\"12\" cy=\"12\" r=\"12\" fill=\"#FBB713\"/>\n        <path d=\"M7 12.5l3.3 3.3L17 9\" stroke=\"#000000\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n      </svg>\n    </div>\n    <span class=\"bullet-text\">Lumière douce, sans danger pour les yeux</span>\n  </div>\n  <div class=\"bullet-item\">\n    <div class=\"icon-wrap\">\n      <svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n        <circle cx=\"12\" cy=\"12\" r=\"12\" fill=\"#FBB713\"/>\n        <path d=\"M7 12.5l3.3 3.3L17 9\" stroke=\"#000000\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n      </svg>\n    </div>\n    <span class=\"bullet-text\">Apprentissage ludique</span>\n  </div>\n  <div class=\"bullet-item\">\n    <div class=\"icon-wrap\">\n      <svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n        <circle cx=\"12\" cy=\"12\" r=\"12\" fill=\"#FBB713\"/>\n        <path d=\"M7 12.5l3.3 3.3L17 9\" stroke=\"#000000\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n      </svg>\n    </div>\n    <span class=\"bullet-text\">Éloigne les enfants des écrans</span>\n  </div>\n</div>\n<style>\n  .bullets {\n    display: flex;\n    flex-direction: column;\n    gap: 5px;\n    font-family: 'Poppins', sans-serif;\n    max-width: 480px;\n  }\n  .bullet-item {\n    display: flex;\n    align-items: center;\n    gap: 12px;\n    background: #1092F0;\n    border-radius: 9px;\n    padding: 7px 14px;\n    border: 1.5px solid #0D7BCB;\n    transition: border-color 0.2s ease, transform 0.15s ease;\n  }\n  .bullet-item:hover {\n    border-color: #FBB713;\n    transform: translateX(2px);\n  }\n  .icon-wrap {\n    width: 26px;\n    height: 26px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    flex-shrink: 0;\n    background: transparent;\n    border-radius: 50%;\n  }\n  .icon-wrap svg {\n    width: 18px;\n    height: 18px;\n  }\n  .bullet-text {\n    font-family: 'Poppins', sans-serif;\n    font-size: 14px;\n    font-weight: 500;\n    color: #FFFFFF;\n    line-height: 1.35;\n  }\n</style>"
+          }
+        },
+        "image_aNHXEq": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Design_sans_titre_70.jpg",
+            "alignment": "center",
+            "max_width": 500
+          }
+        }
+      },
+      "block_order": [
+        "title_Mmj4TC",
+        "buy_buttons_m8VcNj",
+        "liquid_mLikd6",
+        "image_aNHXEq"
+      ],
+      "name": "Featured product",
+      "settings": {
+        "full_width": true,
+        "product": "le-louard",
+        "desktop_media_width": 55,
+        "desktop_media_layout": "carousel_thumbnails_left",
+        "mobile_media_size": "expanded",
+        "mobile_carousel_control": "thumbnails",
+        "enable_video_autoplay": true,
+        "enable_video_looping": false,
+        "enable_image_zoom": false,
+        "max_image_zoom_level": 3,
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "input_background": "rgba(0,0,0,0)",
+        "input_text_color": ""
+      }
     }
   },
   "order": [
     "slideshow",
-    "blocks_gHhexy"
+    "blocks_gHhexy",
+    "featured_product_TkwJ38"
   ]
 }
