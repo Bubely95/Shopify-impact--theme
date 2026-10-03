@@ -313,29 +313,61 @@
         "item_6FCgtt": {
           "type": "item",
           "settings": {
-            "title": "Do you ship overseas?",
-            "content": "<p>Yes, we ship all over the world. Shipping costs will apply, and will be added at checkout. We run discounts and promotions all year, so stay tuned for exclusive deals.</p>"
+            "title": "À partir de quel âge ?",
+            "content": "<p>La Tablette LED Magique est conçue <strong>dès 3 ans</strong>. La prise en main est immédiate : un stylo, on dessine, ça s'allume. Votre enfant comprend tout en moins d'une minute, sans aide.</p>"
           }
         },
         "item_gYWiPT": {
           "type": "item",
           "settings": {
-            "title": "How long will it take to get my orders?",
-            "content": "<p>It depends on where you are. Orders processed here will take 5-7 business days to arrive. Overseas deliveries can take anywhere from 7-16 days. Delivery details will be provided in your confirmation email.</p>"
+            "title": "C'est solide ? Mon enfant manipule tout sans précaution.",
+            "content": "<p>Oui. La tablette est pensée pour des mains d'enfant : coque rigide, écran protégé, stylos résistants. Elle encaisse les chutes du quotidien sans broncher.</p>"
           }
         },
         "item_pWCgXD": {
           "type": "item",
           "settings": {
-            "title": "Any question?",
-            "content": "<p>You can contact us through our contact page! We will be happy to assist you.</p>"
+            "title": "La lumière LED abîme-t-elle les yeux ?",
+            "content": "<p>Non. <strong>Ce n'est pas un écran.</strong> Pas d'images animées, pas de flash, pas de lumière bleue agressive, juste des lumières LED. C'est juste la trace du stylo qui s'illumine doucement. Aucune fatigue oculaire, aucune addiction.</p>"
+          }
+        },
+        "item_YJhdci": {
+          "type": "item",
+          "settings": {
+            "title": "On peut vraiment effacer à l'infini ?",
+            "content": "<p>Oui. Un seul clic suffit. Pas de chiffon, pas de produit, pas d'usure. Votre enfant dessine, efface, recommence. <strong>Des milliers de fois.</strong> Une seule tablette remplace des centaines de feuilles.</p>"
+          }
+        },
+        "item_rTN7wn": {
+          "type": "item",
+          "settings": {
+            "title": "Est-elle facile à emporter en voyage ?",
+            "content": "<p><strong>Oui. </strong>Légère, fine, sans câble en utilisation. Elle se glisse dans un sac à dos ou la valise cabine. Parfaite pour les longs trajets en voiture, train ou avion. Et zéro feuille volante à ramasser sous le siège.</p>"
+          }
+        },
+        "item_zdmx9a": {
+          "type": "item",
+          "settings": {
+            "title": "Et si la tablette ne plaît pas à mon enfant ?",
+            "content": "<p>Vous avez <strong>30 jours pour la retourner</strong>, satisfait ou remboursé, sans condition. On préfère largement reprendre un produit plutôt que de vous laisser avec un cadeau oublié dans un tiroir.</p>"
+          }
+        },
+        "item_dARybK": {
+          "type": "item",
+          "settings": {
+            "title": "Combien de temps prend la livraison ?",
+            "content": "<p><strong>Expédition sous 24 à 48 heures</strong> – <strong>suivi disponible</strong> dès l’expédition de votre commande.<br/><strong>Livraison standard : 8 à 10 &nbsp;jours ouvrés.</strong></p>"
           }
         }
       },
       "block_order": [
         "item_6FCgtt",
         "item_gYWiPT",
-        "item_pWCgXD"
+        "item_pWCgXD",
+        "item_YJhdci",
+        "item_rTN7wn",
+        "item_zdmx9a",
+        "item_dARybK"
       ],
       "name": "FAQ",
       "settings": {
@@ -356,8 +388,8 @@
         "heading_gradient": "",
         "button_background": "",
         "button_text_color": "",
-        "accordion_background": "",
-        "accordion_text_color": ""
+        "accordion_background": "#FFC300",
+        "accordion_text_color": "#000000"
       }
     }
   },
