@@ -26,7 +26,7 @@
           "settings": {
             "title": "Contactez-nous",
             "content": "<p>E-mail : contact@varelyon.com<br/>Téléphone : bientôt disponible<br/><a href=\"/pages/contact\" title=\"Contact\"><strong>Formulaire de contact</strong></a></p>",
-            "enable_follow_on_shop": true
+            "enable_follow_on_shop": false
           }
         }
       },
