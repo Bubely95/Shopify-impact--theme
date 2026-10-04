@@ -172,7 +172,7 @@
             "title_letter_spacing": 0,
             "title_color": "#000000",
             "title_bottom_spacing": 5,
-            "subtitle": "Noté 4,8/5 basé sur +350 avis",
+            "subtitle": "Noté 4,8/5 basé sur +330 avis",
             "subtitle_size": 14,
             "subtitle_color": "#000000",
             "subtitle_bottom_spacing": 20,
@@ -405,31 +405,6 @@
         "accordion_text_color": "#000000"
       }
     },
-    "17910336718f4779c0": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_8933449_XWiXpn": {
-          "type": "ai_gen_block_8933449",
-          "settings": {
-            "desktop_width_percent": 100,
-            "top_spacing": 48,
-            "bottom_spacing": 48,
-            "horizontal_padding": 0,
-            "mobile_top_spacing": 30,
-            "mobile_bottom_spacing": 30,
-            "show_divider": false,
-            "divider_height": 1,
-            "divider_color": "#d9dee1",
-            "corner_radius": 0
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_8933449_XWiXpn"
-      ],
-      "settings": {}
-    },
     "1791053731e864eb06": {
       "type": "apps",
       "blocks": {
@@ -456,6 +431,31 @@
         "review_button_background": "#000000",
         "review_button_text_color": "#ffffff"
       }
+    },
+    "17910336718f4779c0": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_8933449_XWiXpn": {
+          "type": "ai_gen_block_8933449",
+          "settings": {
+            "desktop_width_percent": 100,
+            "top_spacing": 48,
+            "bottom_spacing": 48,
+            "horizontal_padding": 0,
+            "mobile_top_spacing": 30,
+            "mobile_bottom_spacing": 30,
+            "show_divider": false,
+            "divider_height": 1,
+            "divider_color": "#d9dee1",
+            "corner_radius": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_8933449_XWiXpn"
+      ],
+      "settings": {}
     },
     "text_with_icons_XkVJmG": {
       "type": "text-with-icons",
