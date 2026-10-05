@@ -17,7 +17,7 @@
         "message_xGnxc9": {
           "type": "message",
           "settings": {
-            "text": "OFFRE RENTRÉE 2026 : 1 ACHETÉ = 1 OFFERT",
+            "text": "OFFRE RENTRÉE 2026 : -40% + 6 FEUTRES OFFERTS",
             "url": ""
           }
         },
@@ -38,7 +38,7 @@
         "text_size": "text-base",
         "navigation_mode": "arrows",
         "scrolling_speed": 10,
-        "background": "#1092F0",
+        "background": "#1092f0",
         "background_gradient": "",
         "text_color": "#ffffff"
       }
